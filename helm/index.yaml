@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  noria-operator:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2020-04-21T11:38:32.618467449+01:00"
+    description: An operator for the noria database backend
+    digest: e2810b174bc7d58ef481eb64c4555a9e4d9db6a5175d14184ce8a0eebb104ff0
+    name: noria-operator
+    type: application
+    urls:
+    - noria-operator-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-04-21T11:38:32.618181386+01:00"
