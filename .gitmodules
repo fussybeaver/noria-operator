@@ -1,0 +1,11 @@
+[submodule "noria"]
+	path = noria-image/noria
+	url = git@github.com:mit-pdos/noria.git
+	branch = master
+[submodule "noria-mysql"]
+	path = noria-image/noria-mysql
+	url = git@github.com:mit-pdos/noria-mysql.git
+	branch = master
+[submodule "noria-image/noria-ui"]
+	path = noria-image/noria-ui
+	url = git@github.com:mit-pdos/noria-ui.git

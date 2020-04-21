@@ -1,0 +1,7 @@
+noria/Cargo.lock
+noria/target
+noria/.git
+noria-mysql/Cargo.lock
+noria-mysql/target
+noria-mysql/.git
+noria-ui/.git

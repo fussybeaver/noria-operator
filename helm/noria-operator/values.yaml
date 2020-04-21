@@ -1,0 +1,6 @@
+image:
+  repository: fussybeaver/noria-operator
+  tag: 0.1.0
+
+logLevel: DEBUG
+

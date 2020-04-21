@@ -1,0 +1,63 @@
+version: "2.4"
+services:
+  noria-server:
+    build: .
+    environment:
+      RUST_LOG: debug
+      RUST_BACKTRACE: 1
+    entrypoint: ["noria-server", "--deployment", "development", "--no-reuse", "--shards", "0", "--address", "172.19.0.3", "-z", "zookeeper:2181"]
+    ports:
+    - "6033:6033"
+    networks:
+      noria_net:
+        ipv4_address: 172.19.0.3
+    depends_on: 
+    - zookeeper
+
+  noria-mysql:
+    build: .
+    environment:
+      RUST_LOG: debug
+      RUST_BACKTRACE: 1
+    entrypoint: ["noria-mysql", "--deployment", "development", "-z", "zookeeper:2181", "--address", "172.19.0.4:3306"]
+    ports:
+    - "3306:3306"
+    networks:
+      noria_net:
+        ipv4_address: 172.19.0.4
+    depends_on: 
+    - zookeeper
+    - noria-server
+
+  noria-ui:
+    build: .
+    working_dir: /srv/noria-ui
+    entrypoint: ["python3", "-m", "http.server"]
+    ports:
+    - "8000:8000"
+    networks:
+      noria_net:
+        ipv4_address: 172.19.0.5
+    depends_on: 
+    - noria-server
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.3.3
+    hostname: zookeeper
+    ports:
+    - "2181:2181"
+    networks:
+      noria_net:
+        ipv4_address: 172.19.0.2
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+networks:
+  noria_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.19.0.0/24
+        gateway: 172.19.0.1

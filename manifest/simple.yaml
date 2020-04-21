@@ -1,0 +1,11 @@
+apiVersion: "noria-operator.io/v1alpha1"
+kind: Noria
+metadata:
+  name: test
+spec:
+  deployments: 
+  - id: xx
+  - id: aa
+  zookeeper_config: 
+    additional_properties: 
+      snapshot.trust.empty: "true"

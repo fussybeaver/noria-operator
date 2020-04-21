@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  labels:
+    app: {{ .Chart.Name }}
+    chart: {{ template "noria-operator.chart" . }}
+    component: deployment
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      noria-operator.io/kind: "operator"
+      noria-operator.io/name: "noria"
+  template:
+    metadata:
+      labels:
+        noria-operator.io/kind: "operator"
+        noria-operator.io/name: "noria"
+    spec:
+      serviceAccountName: {{ .Chart.Name }}-service-account
+      containers:
+      - env:
+        - name: RUST_LOG
+          value: debug
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+        args: [ "serviceaccount" ]
+        imagePullPolicy: Always
+        name: {{ .Chart.Name }}
